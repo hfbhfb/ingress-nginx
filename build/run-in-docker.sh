@@ -34,7 +34,7 @@ function cleanup {
 }
 trap cleanup EXIT
 
-E2E_IMAGE=${E2E_IMAGE:-k8s.gcr.io/ingress-nginx/e2e-test-runner:v20201029-g92de5212d@sha256:ab3e24d06a1cf152d39cb8c11f1c0dcbd99b20de0b183657e04d32c2d094c0bb}
+E2E_IMAGE=lyt99/e2e-test-runner:v20210916-gd9f96bbbb
 
 DOCKER_OPTS=${DOCKER_OPTS:-}
 DOCKER_IN_DOCKER_ENABLED=${DOCKER_IN_DOCKER_ENABLED:-}
@@ -61,6 +61,8 @@ else
     ${DOCKER_OPTS}                                      \
     -e GOCACHE="/go/src/${PKG}/.cache"                  \
     -e DOCKER_IN_DOCKER_ENABLED="true"                  \
+    -e DOCKER_IN_DOCKER_ENABLED="true"                  \
+    -e GOPROXY="https://goproxy.cn,direct"                \
     -v "${HOME}/.kube:${HOME}/.kube"                    \
     -v "${KUBE_ROOT}:/go/src/${PKG}"                    \
     -v "${KUBE_ROOT}/bin/${ARCH}:/go/bin/linux_${ARCH}" \
